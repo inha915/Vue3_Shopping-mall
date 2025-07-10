@@ -19,21 +19,25 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/Login.vue'),
     },
+    {
+      path: '/card',
+      name: 'card',
+      component: () => import('../components/Card.vue'),
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: () => import('../views/Cart.vue'),
+    },
+    {
+      path: '/order',
+      name: 'order',
+      component: () => import('../views/OrderForm.vue'),
+    },
     // {
     //   path: '/header',
     //   name: 'header',
     //   component: () => import('../components/Header.vue'),
-    // },
-    // {
-    //   path: '/order',
-    //   name: 'order',
-    //   component: () => import('../views/AboutView.vue'),
-    // },
-
-    // {
-    //   path: '/cart',
-    //   name: 'cart',
-    //   component: () => import('../views/AboutView.vue'),
     // },
   ],
 });

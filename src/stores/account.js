@@ -1,4 +1,4 @@
-import { ref, computed, reactive } from 'vue';
+import { reactive, computed } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useAccountStore = defineStore('account', () => {
