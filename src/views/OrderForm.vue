@@ -31,8 +31,12 @@ const computedTotalPrice = computed(() => {
   return result;
 });
 
-onMounted(() => {
-  loadItems();
+onMounted(async () => {
+  const res = await getItems();
+  if (res === undefined || res.status !== 200) {
+    return;
+  }
+  state.items = res.data;
 });
 
 const submit = async () => {
@@ -42,20 +46,22 @@ const submit = async () => {
   if (state.form.payment !== 'card') {
     state.form.cardNumber = '';
   }
-  state.form.itemIds = state.items.map((item) => item.id);
+  state.form.itemIds = state.items.map((item) => item.itemId);
   const res = await addOrder(state.form);
-  console.log('최종 제출 데이터:', state.form);
-};
-
-// 결제 수단 변경 감지 → 카드가 아니면 카드번호 초기화
-watch(
-  () => state.form.payment,
-  (newVal) => {
-    if (newVal !== 'card') {
-      state.form.cardNumber = '';
-    }
+  if (res === undefined || res.status !== 200) {
+    alert('에러발생');
+    return;
   }
-);
+  const message = ['주문이 완료되었습니다'];
+  if (state.form.payment === 'bank') {
+    const price = computedTotalPrice.value.toLocaleString();
+    message.push(
+      `한국은행 123-456-777 계좌로 ${price}원을 입금해주시기 바랍니다`
+    );
+  }
+  alert(message.join('\n'));
+  await router.push('/');
+};
 </script>
 
 <template>
