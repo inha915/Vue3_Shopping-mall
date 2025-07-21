@@ -40,7 +40,7 @@ onMounted(() => {
           <li v-for="item in state.items">
             <img
               :alt="`상품 사진(${item.name})`"
-              :src="`/pic/item/${item.imgPath}`"
+              :src="`/pic/item/${item.itemId}/${item.imgPath}`"
             />
             <b class="name">{{ item.name }}</b>
             <span class="price">
